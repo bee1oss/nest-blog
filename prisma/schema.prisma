@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  email       String @unique
+  passwd_hash String
+  picture     String @default("/uploads/no-user-image.png")
+
+  posts Post[]
+
+  @@map("user")
+}
+
+model Post {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  summary     String?
+  content     String
+  isPublished Boolean  @default(false)
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String
+  tags        Tag[]    @relation("PostTags")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Beğeni ve görüntülenme ilişkisi
+  likes Like[]
+  views View[]
+}
+
+model Tag {
+  id    String @id @default(uuid())
+  name  String @unique
+  posts Post[] @relation("PostTags")
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String
+  ip        String // Anonim kullanıcıyı ayırt etmek için
+  createdAt DateTime @default(now())
+
+  @@unique([postId, ip]) // Aynı IP aynı gönderiye sadece 1 kez like atabilir
+}
+
+model View {
+  id        String   @id @default(uuid())
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String
+  ip        String
+  createdAt DateTime @default(now())
+}
