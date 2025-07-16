@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -13,11 +12,13 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @map("updated_at")
 
-  email       String @unique
-  passwd_hash String
-  picture     String @default("/uploads/no-user-image.png")
+  name    String
+  email   String @unique
+  passwd  String
+  picture String @default("/uploads/no-user-image.png")
 
-  posts Post[]
+  posts        Post[]
+  RefreshToken RefreshToken[]
 
   @@map("user")
 }
@@ -62,4 +63,13 @@ model View {
   postId    String
   ip        String
   createdAt DateTime @default(now())
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
