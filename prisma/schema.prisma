@@ -36,9 +36,14 @@ model Post {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  // Beğeni ve görüntülenme ilişkisi
   likes Like[]
   views View[]
+
+  //SEO ile ilgili alanlar
+  metaTitle       String?
+  metaDescription String?
+  coverImage      String?
+  publishedAt     DateTime?
 }
 
 model Tag {
