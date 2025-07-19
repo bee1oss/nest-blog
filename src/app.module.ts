@@ -5,6 +5,8 @@ import { ThrottlerModule } from '@nestjs/throttler'
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common'
 import { CsrfMiddleware } from './auth/middleware/csrf.middleware'
 import { RefreshtokenModule } from './refreshtoken/refreshtoken.module';
+import { PostModule } from './post/post.module';
+import { StatisticsModule } from './statistics/statistics.module';
 
 @Module({
 	imports: [
@@ -19,7 +21,9 @@ import { RefreshtokenModule } from './refreshtoken/refreshtoken.module';
 				}
 			]
 		}),
-		RefreshtokenModule
+		RefreshtokenModule,
+		PostModule,
+		StatisticsModule
 	]
 })
 export class AppModule {

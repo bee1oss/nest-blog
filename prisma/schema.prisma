@@ -39,6 +39,11 @@ model Post {
   // Beğeni ve görüntülenme ilişkisi
   likes Like[]
   views View[]
+
+  metaTitle       String?
+  metaDescription String?
+  coverImage      String?
+  publishedAt     DateTime?
 }
 
 model Tag {
