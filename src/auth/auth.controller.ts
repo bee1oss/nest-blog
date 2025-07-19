@@ -20,7 +20,6 @@ export class AuthController {
 
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
-	@Throttle({ default: { limit: 3, ttl: 60000 } })
 	@Post('login')
 	async login(
 		@Body() dto: AuthDto,
