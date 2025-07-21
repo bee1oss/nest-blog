@@ -82,10 +82,10 @@ export class PostController {
 		return this.postService.getAllTags()
 	}
 
-	@Post()
 	@HttpCode(200)
 	@Auth()
 	@UsePipes(new ValidationPipe())
+	@Post()
 	async create(
 		@Body() dto: CreatePostDto,
 		@CurrentUser('id') userId: string

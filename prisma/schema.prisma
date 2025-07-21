@@ -78,3 +78,10 @@ model RefreshToken {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model Upload {
+  id        String   @id @default(uuid())
+  url       String
+  filename  String
+  createdAt DateTime @default(now())
+}

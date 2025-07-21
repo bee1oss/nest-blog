@@ -8,6 +8,7 @@ import { RefreshtokenModule } from './refreshtoken/refreshtoken.module'
 import { PostModule } from './post/post.module'
 import { StatisticsModule } from './statistics/statistics.module'
 import { APP_GUARD } from '@nestjs/core'
+import { UploadModule } from './upload/upload.module';
 
 @Module({
 	imports: [
@@ -24,7 +25,8 @@ import { APP_GUARD } from '@nestjs/core'
 		}),
 		RefreshtokenModule,
 		PostModule,
-		StatisticsModule
+		StatisticsModule,
+		UploadModule
 	],
 	providers: [
 		{
